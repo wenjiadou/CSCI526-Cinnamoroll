@@ -12,14 +12,14 @@ public class BoxController : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Hi! Let's start the game!");
+        // Debug.Log("Hi! Let's start the game!");
     }
 
     void Update()
     {
         if(move)
         {
-            Debug.Log("Now move the box!");
+            // Debug.Log("Now move the box!");
             // StartCoroutine(MoveBox(Vector3.forward));
 
             if(direction == 1)

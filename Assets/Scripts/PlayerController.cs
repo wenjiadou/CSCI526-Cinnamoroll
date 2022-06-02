@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float rayLength = 1.4f;
 
+    // 1 = forward, 2 = back, 3 = left, 4 = right
+    public int direction;
+
     // Update is called once per frame
     void Update()
     {
@@ -20,6 +23,7 @@ public class PlayerController : MonoBehaviour
             if(!Physics.Raycast(transform.position, Vector3.forward, rayLength, stopMovement))
             {
                 StartCoroutine(MovePlayer(Vector3.forward));
+                direction = 1;
             }
         }
         if (Input.GetKeyDown(KeyCode.S) && !isMoving)
@@ -27,6 +31,7 @@ public class PlayerController : MonoBehaviour
             if(!Physics.Raycast(transform.position, Vector3.back, rayLength, stopMovement))
             {
                 StartCoroutine(MovePlayer(Vector3.back));
+                direction = 2;
             }
         }
         if (Input.GetKeyDown(KeyCode.A) && !isMoving)
@@ -34,6 +39,7 @@ public class PlayerController : MonoBehaviour
             if(!Physics.Raycast(transform.position, Vector3.left, rayLength, stopMovement))
             {
                 StartCoroutine(MovePlayer(Vector3.left));
+                direction = 3;
             }
         }
         if (Input.GetKeyDown(KeyCode.D) && !isMoving)
@@ -41,6 +47,7 @@ public class PlayerController : MonoBehaviour
             if(!Physics.Raycast(transform.position, Vector3.right, rayLength, stopMovement))
             {
                 StartCoroutine(MovePlayer(Vector3.right));
+                direction = 4;
             }
         }
     }

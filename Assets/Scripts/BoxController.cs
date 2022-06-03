@@ -5,7 +5,6 @@ using UnityEngine;
 public class BoxController : MonoBehaviour
 {
     private Vector3 originPos, targetPos;
-    // private float timeToMove = 0.2f;
     private bool move = false;
     private int direction;
     private Vector3 moveDirection;

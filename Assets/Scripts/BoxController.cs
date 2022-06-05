@@ -5,20 +5,21 @@ using UnityEngine;
 public class BoxController : MonoBehaviour
 {
     private Vector3 originPos, targetPos;
+    // private float timeToMove = 0.2f;
     private bool move = false;
     private int direction;
     private Vector3 moveDirection;
 
     void Start()
     {
-        Debug.Log("Hi! Let's start the game!");
+        // Debug.Log("Hi! Let's start the game!");
     }
 
     void Update()
     {
         if(move)
         {
-            Debug.Log("Now move the box!");
+            // Debug.Log("Now move the box!");
             // StartCoroutine(MoveBox(Vector3.forward));
 
             if(direction == 1)

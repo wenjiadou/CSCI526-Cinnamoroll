@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class BoxController : MonoBehaviour
 {
-    private Vector3 originPos, targetPos;
-    // private float timeToMove = 0.2f;
-    private bool move = false;
+  
+    public bool move = false;
     private Vector3 direction;
-    // private Vector3 moveDirection;
     public LayerMask stopMovement;
     float rayLength = 1.4f;
     public bool moveable = true;
@@ -20,12 +18,9 @@ public class BoxController : MonoBehaviour
 
     void Update()
     {
-        checkMoveable(direction);
-        if(move && moveable)
+      
+        if(move)
         {
-            // originPos = transform.position;
-            // targetPos = originPos + direction;
-            // transform.position = targetPos;
             transform.Translate(direction);
             bool isDown = downsideDetect();
             if (isDown == false){
@@ -57,8 +52,9 @@ public class BoxController : MonoBehaviour
             direction = other.gameObject.GetComponent<PlayerController>().direction;
         }
     }
-    void checkMoveable(Vector3 direction){
-        moveable = !Physics.Raycast(transform.position+new Vector3(0,0.5f,0), direction, rayLength, stopMovement) && !Physics.Raycast(transform.position+new Vector3(0,0.5f,0), direction, rayLength);
+    public void checkMoveable(Vector3 direction){
+        moveable = !Physics.Raycast(transform.position, direction, rayLength, stopMovement) && !Physics.Raycast(transform.position, direction, rayLength);
     }
+
 
 }

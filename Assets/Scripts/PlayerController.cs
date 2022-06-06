@@ -20,14 +20,14 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W) && !isMoving)
         {
-            if(!Physics.Raycast(transform.position, Vector3.forward, rayLength, stopMovement))
+            if(!Physics.Raycast(transform.position, Vector3.forward, rayLength, stopMovement)) // bound check
             {
                 direction = Vector3.forward;
-                RaycastHit hit;
+                RaycastHit hit; 
 
                 if (Physics.Raycast(transform.position, direction, out hit, rayLength) && hit.collider.CompareTag("Box")){ // detect box in the direction
                     //push box;
-                    if (hit.collider.GetComponent<BoxController>().moveable) StartCoroutine(MovePlayer(direction));
+                    PushBox(hit);
                 }
                 else {
                     StartCoroutine(MovePlayer(direction));
@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
             
                 if (Physics.Raycast(transform.position, direction, out hit, rayLength) && hit.collider.CompareTag("Box")){
                     //push box;
-                    if (hit.collider.GetComponent<BoxController>().moveable) StartCoroutine(MovePlayer(direction));
+                    PushBox(hit);
                 }
                 else {
                     StartCoroutine(MovePlayer(direction));
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour
                
                 if (Physics.Raycast(transform.position, direction, out hit, rayLength) && hit.collider.CompareTag("Box")){
                     //push box;
-                    if (hit.collider.GetComponent<BoxController>().moveable) StartCoroutine(MovePlayer(direction));
+                    PushBox(hit);
                 }
                 else {
                     StartCoroutine(MovePlayer(direction));
@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
                 RaycastHit hit;
                 if (Physics.Raycast(transform.position, direction, out hit, rayLength) && hit.collider.CompareTag("Box")){
                     //push box;
-                    if (hit.collider.GetComponent<BoxController>().moveable) StartCoroutine(MovePlayer(direction));
+                    PushBox(hit);
                 }
                 else {
                     StartCoroutine(MovePlayer(direction));
@@ -107,5 +107,13 @@ public class PlayerController : MonoBehaviour
         transform.position = targetPos;
 
         isMoving = false;
+    }
+    private void PushBox(RaycastHit hit){ // check if it is moveable and push box
+        hit.collider.GetComponent<BoxController>().checkMoveable(direction);
+        if (hit.collider.GetComponent<BoxController>().moveable) {
+            StartCoroutine(MovePlayer(direction));
+            // hit.collider.transform.Translate(direction);
+            hit.collider.GetComponent<BoxController>().move = true;
+            }
     }
 }

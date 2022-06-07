@@ -30,8 +30,7 @@ public class HeartSystem : MonoBehaviour
         if(dead)
         {
             // SET DEAD
-            Debug.Log("Player was killed!");
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
 
         if(invulnerable)

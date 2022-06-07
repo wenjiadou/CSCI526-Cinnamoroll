@@ -4,83 +4,51 @@ using UnityEngine;
 
 public class BoxController : MonoBehaviour
 {
-    private Vector3 originPos, targetPos;
-    // private float timeToMove = 0.2f;
-    private bool move = false;
-    private int direction;
-    private Vector3 moveDirection;
-
-    void Start()
-    {
-        // Debug.Log("Hi! Let's start the game!");
-    }
+    public bool move = false;
+    private Vector3 direction;
+    public LayerMask stopMovement;
+    float rayLength = 1.4f;
+    public bool moveable = true;
+    public GameObject upBox;
 
     void Update()
     {
-        if(move)
-        {
-            // Debug.Log("Now move the box!");
-            // StartCoroutine(MoveBox(Vector3.forward));
-
-            if(direction == 1)
-            {
-                moveDirection = Vector3.forward;
-            }
-            if(direction == 2)
-            {
-                moveDirection = Vector3.back;
-            }
-            if(direction == 3)
-            {
-                moveDirection = Vector3.left;
-            }
-            if(direction == 4)
-            {
-                moveDirection = Vector3.right;
-            }
-
-            originPos = transform.position;
-            targetPos = originPos + moveDirection;
-            transform.position = targetPos;
-            move = false;
-        }
+      if(move)
+      {
+          transform.Translate(direction);
+          bool isDown = downsideDetect();
+          if (isDown == false){
+              transform.Translate(Vector3.down);
+          }
+          if (upBox!=null) {
+              upBox.transform.Translate(direction);
+              if (isDown == false) upBox.transform.Translate(Vector3.down);
+          }
+          move = false;
+      }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        // Debug.Log("something hits!");
         if(other.gameObject.tag == "Player")
         {
-            // Debug.Log("Oh it is player!");
             move = true;
             direction = other.gameObject.GetComponent<PlayerController>().direction;
         }
     }
 
-    // Both rigidbody, collider not in trigger 
-    // void OnCollisionEnter(Collision collision){
-    //     if (collision.collider.tag == "Player") {
-    //         move = true;
-    //         Debug.Log("Hits by player!");
-    //     }
-    // }
+    bool downsideDetect()
+    {
+        RaycastHit hit;
+        if (!Physics.Raycast(transform.position, Vector3.down, out hit, rayLength))
+        {
+            return false;
+        }
+        else return true;
+    }
 
-    // private IEnumerator MoveBox(Vector3 direction)
-    // {
-    //     float elapsedTime = 0;
-
-    //     originPos = transform.position;
-    //     targetPos = originPos + direction;
-
-    //     while(elapsedTime < timeToMove)
-    //     {
-    //         transform.position = Vector3.Lerp(originPos, targetPos, (elapsedTime / timeToMove));
-    //         elapsedTime += Time.deltaTime;
-    //         yield return null;
-    //     }
-
-    //     transform.position = targetPos;
-
-    //     move = false;
-    // }
+    public void checkMoveable(Vector3 direction)
+    {
+        moveable = !Physics.Raycast(transform.position, direction, rayLength, stopMovement) && !Physics.Raycast(transform.position, direction, rayLength);
+    }
 }

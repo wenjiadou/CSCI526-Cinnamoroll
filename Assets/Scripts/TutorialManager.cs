@@ -44,16 +44,33 @@ public class TutorialManager : MonoBehaviour
                 popUpIndex++;
             }
         } else if(popUpIndex == 2) {
+            if (inventory.isFull[0] == false)
+            {
+                popUpIndex++;
+            }
+
             // Player died
             if(heartSystem.life < 1)
             {
-                popUpIndex = 3;
+                popUpIndex = 4;
             }
 
             // Player get the destination
             if(playerController.playVictoryAnimation)
             {
+                popUpIndex = 5;
+            }
+        } else if(popUpIndex == 3) {
+            // Player died
+            if(heartSystem.life < 1)
+            {
                 popUpIndex = 4;
+            }
+
+            // Player get the destination
+            if(playerController.playVictoryAnimation)
+            {
+                popUpIndex = 5;
             }
         }
     }

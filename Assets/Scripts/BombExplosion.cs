@@ -7,6 +7,7 @@ public class BombExplosion : MonoBehaviour
     public GameObject explosionPrefab;
     private HeartSystem playerHearts;
     private GameObject explosion;
+    private GameObject player;
 
     // Start is called before the first frame update
     void Start()
@@ -35,15 +36,24 @@ public class BombExplosion : MonoBehaviour
         for (int i = 1;i<3;i++){
             RaycastHit hit;
             Physics.Raycast(transform.position + new Vector3(0,.5f,0), direction, out hit);
-            if (hit.collider.gameObject.CompareTag("Enemy")){
+
+            player = GameObject.FindGameObjectWithTag("Player");
+            Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+            Vector3 bombPosition = gameObject.transform.position;
+            if(playerPosition - bombPosition == Vector3.forward || playerPosition - bombPosition == Vector3.back || playerPosition - bombPosition == Vector3.right || playerPosition - bombPosition == Vector3.left) {
+                playerHearts = player.GetComponent<HeartSystem>();
+                playerHearts.TakeDamage();
+            }
+
+            if(hit.collider.gameObject.CompareTag("Enemy")) {
                 // Kill enemy
                 Destroy(hit.collider.gameObject);
-            } else if(hit.collider.gameObject.CompareTag("Player"))
-            {
-                // Player life - 1
-                playerHearts =  hit.collider.gameObject.GetComponent<HeartSystem>();
-                playerHearts.TakeDamage();
-            } else{
+            // } else if(hit.collider.gameObject.CompareTag("Player")) {
+            //     // Player life - 1
+            //     Debug.Log("Player");
+            //     playerHearts =  hit.collider.gameObject.GetComponent<HeartSystem>();
+            //     playerHearts.TakeDamage();
+            } else {
                 break;
             }
             yield return new WaitForSeconds(.05f);

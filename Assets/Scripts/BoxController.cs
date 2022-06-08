@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class BoxController : MonoBehaviour
 {
@@ -10,22 +12,27 @@ public class BoxController : MonoBehaviour
     float rayLength = 1.4f;
     public bool moveable = true;
     public GameObject upBox;
+    public int limitSteps = 99;
 
     void Update()
     {
-      if(move)
-      {
-          transform.Translate(direction);
-          bool isDown = downsideDetect();
-          if (isDown == false){
-              transform.Translate(Vector3.down);
-          }
-          if (upBox!=null) {
-              upBox.transform.Translate(direction);
-              if (isDown == false) upBox.transform.Translate(Vector3.down);
-          }
-          move = false;
-      }
+        if(move)
+        {
+            transform.Translate(direction);
+            bool isDown = downsideDetect();
+            if (isDown == false){
+                transform.Translate(Vector3.down);
+            }
+            if (upBox!=null) {
+                upBox.transform.Translate(direction);
+                if (isDown == false) upBox.transform.Translate(Vector3.down);
+            }
+            move = false;
+            limitSteps--;
+            if (limitSteps < 3) {
+                // Debug.Log(transform.GetChild(0).GetChild(0).GetComponent<TextMeshPro>().text);
+            }
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -50,5 +57,8 @@ public class BoxController : MonoBehaviour
     public void checkMoveable(Vector3 direction)
     {
         moveable = !Physics.Raycast(transform.position, direction, rayLength, stopMovement) && !Physics.Raycast(transform.position, direction, rayLength);
+        if (limitSteps <= 0) {
+            moveable = false;
+        }
     }
 }

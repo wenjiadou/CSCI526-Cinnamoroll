@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     float rayLength = 1.4f;
     public Vector3 direction;
 
+    public bool playVictoryAnimation = false;
+    public CapsuleCollider destinationTrigger;
+
     void Update()
     {
       if (Input.GetKeyDown(KeyCode.W) && !isMoving)
@@ -100,6 +103,7 @@ public class PlayerController : MonoBehaviour
 
         isMoving = false;
     }
+
     private void PushBox(RaycastHit hit)
     {
         // check if it is moveable and push box
@@ -108,6 +112,16 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(MovePlayer(direction));
             hit.collider.GetComponent<BoxController>().move = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // if player is inside destination trigger play victory clip
+        if (other == destinationTrigger)
+        {
+            playVictoryAnimation = true;
+            gameObject.SetActive(false);
         }
     }
 }

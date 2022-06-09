@@ -31,7 +31,7 @@ public class EnemyController : MonoBehaviour
                     timer = 0f;
                 }
             } else {
-                if(moveForward && transform.position == waypoints[i].transform.position) 
+                if(moveForward && transform.position == waypoints[i].transform.position)
                 {
                     lastI = i;
                     i += 1;

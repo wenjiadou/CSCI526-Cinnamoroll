@@ -2563,7 +2563,7 @@ MonoBehaviour:
     m_Bits: 64
   moveable: 1
   upBox: {fileID: 0}
-  limitSteps: 1
+  limitSteps: 99
 --- !u!1 &427085437
 GameObject:
   m_ObjectHideFlags: 0
@@ -6755,7 +6755,7 @@ MonoBehaviour:
     m_Bits: 64
   moveable: 1
   upBox: {fileID: 0}
-  limitSteps: 1
+  limitSteps: 99
 --- !u!1 &1312054429
 GameObject:
   m_ObjectHideFlags: 0
@@ -7557,7 +7557,7 @@ MonoBehaviour:
     m_Bits: 64
   moveable: 1
   upBox: {fileID: 2094355846}
-  limitSteps: 1
+  limitSteps: 99
 --- !u!65 &1464348656
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10552,7 +10552,7 @@ MonoBehaviour:
     m_Bits: 64
   moveable: 1
   upBox: {fileID: 0}
-  limitSteps: 1
+  limitSteps: 99
 --- !u!65 &2094355849
 BoxCollider:
   m_ObjectHideFlags: 0

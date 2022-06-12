@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BombItem : MonoBehaviour
+public class HealItem : MonoBehaviour
 {
     // player position
     private Transform player;
-    // Bomb-use
-    public GameObject bombItem;
 
     private Vector3 slot1;
     private Vector3 slot2;
@@ -20,6 +18,7 @@ public class BombItem : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
+    // Update is called once per frame
     void Update()
     {
         if(Input.GetKeyDown(KeyCode.Alpha1))
@@ -46,9 +45,7 @@ public class BombItem : MonoBehaviour
 
     public void Use()
     {
-        Instantiate(bombItem, player.position, Quaternion.identity);
-
-        // Destroy the button
+        player.gameObject.GetComponent<HeartSystem>().GetHeal();
         Destroy(gameObject);
     }
 }

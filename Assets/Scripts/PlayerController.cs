@@ -4,52 +4,82 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private bool isMoving;
+    public bool isMoving;
     private Vector3 originPos, targetPos;
     private float timeToMove = 0.2f;
 
     public LayerMask stopMovement;
-    [SerializeField]
-    float rayLength = 1.4f;
+    public float rayLength = 1.4f;
+    public Vector3 direction;
 
-    // 1 = forward, 2 = back, 3 = left, 4 = right
-    public int direction;
+    public bool playVictoryAnimation = false;
+    public CapsuleCollider destinationTrigger;
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.W) && !isMoving)
-        {
-            if(!Physics.Raycast(transform.position, Vector3.forward, rayLength, stopMovement))
-            {
-                StartCoroutine(MovePlayer(Vector3.forward));
-                direction = 1;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.S) && !isMoving)
-        {
-            if(!Physics.Raycast(transform.position, Vector3.back, rayLength, stopMovement))
-            {
-                StartCoroutine(MovePlayer(Vector3.back));
-                direction = 2;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.A) && !isMoving)
-        {
-            if(!Physics.Raycast(transform.position, Vector3.left, rayLength, stopMovement))
-            {
-                StartCoroutine(MovePlayer(Vector3.left));
-                direction = 3;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.D) && !isMoving)
-        {
-            if(!Physics.Raycast(transform.position, Vector3.right, rayLength, stopMovement))
-            {
-                StartCoroutine(MovePlayer(Vector3.right));
-                direction = 4;
-            }
-        }
+      if (Input.GetKeyDown(KeyCode.W) && !isMoving)
+      {
+          if(!Physics.Raycast(transform.position, Vector3.forward, rayLength, stopMovement)) // bound check
+          {
+              direction = Vector3.forward;
+              RaycastHit hit;
+
+              if (Physics.Raycast(transform.position, direction, out hit, rayLength) && hit.collider.CompareTag("Box")){ // detect box in the direction
+                  //push box;
+                  PushBox(hit);
+              }
+              else {
+                  StartCoroutine(MovePlayer(direction));
+              }
+          }
+      }
+      if (Input.GetKeyDown(KeyCode.S) && !isMoving)
+      {
+          if(!Physics.Raycast(transform.position, Vector3.back, rayLength, stopMovement))
+          {
+              direction = Vector3.back;
+              RaycastHit hit;
+
+              if (Physics.Raycast(transform.position, direction, out hit, rayLength) && hit.collider.CompareTag("Box")){
+                  //push box;
+                  PushBox(hit);
+              }
+              else {
+                  StartCoroutine(MovePlayer(direction));
+              }
+          }
+      }
+      if (Input.GetKeyDown(KeyCode.A) && !isMoving)
+      {
+          if(!Physics.Raycast(transform.position, Vector3.left, rayLength, stopMovement))
+          {
+              direction = Vector3.left;
+              RaycastHit hit;
+
+              if (Physics.Raycast(transform.position, direction, out hit, rayLength) && hit.collider.CompareTag("Box")){
+                  //push box;
+                  PushBox(hit);
+              }
+              else {
+                  StartCoroutine(MovePlayer(direction));
+              }
+          }
+      }
+      if (Input.GetKeyDown(KeyCode.D) && !isMoving)
+      {
+          if(!Physics.Raycast(transform.position, Vector3.right, rayLength, stopMovement))
+          {
+              direction = Vector3.right;
+              RaycastHit hit;
+              if (Physics.Raycast(transform.position, direction, out hit, rayLength) && hit.collider.CompareTag("Box")){
+                  //push box;
+                  PushBox(hit);
+              }
+              else {
+                  StartCoroutine(MovePlayer(direction));
+              }
+          }
+      }
     }
 
     private IEnumerator MovePlayer(Vector3 direction)
@@ -71,5 +101,34 @@ public class PlayerController : MonoBehaviour
         transform.position = targetPos;
 
         isMoving = false;
+    }
+
+    private void PushBox(RaycastHit hit)
+    {
+        // // check if it is moveable and push box
+        // hit.collider.GetComponent<BoxController>().checkMoveable(direction);
+        // if (hit.collider.GetComponent<BoxController>().moveable)
+        // {
+        //     StartCoroutine(MovePlayer(direction));
+        //     hit.collider.GetComponent<BoxController>().move = true;
+        // }
+
+        // check if it is moveable and push box
+        bool moveable = hit.collider.GetComponent<BoxController>().checkMoveable(direction);
+        if (moveable) {
+            StartCoroutine(MovePlayer(direction));
+            hit.collider.GetComponent<BoxController>().moveBox(direction);
+            hit.collider.GetComponent<BoxController>().limitSteps--;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // if player is inside destination trigger play victory clip
+        if (other == destinationTrigger)
+        {
+            playVictoryAnimation = true;
+            gameObject.SetActive(false);
+        }
     }
 }

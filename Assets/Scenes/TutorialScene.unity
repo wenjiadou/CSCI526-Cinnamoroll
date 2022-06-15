@@ -1384,6 +1384,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Austrilia Level
       objectReference: {fileID: 0}
+    - target: {fileID: 9210215659403930659, guid: 9cfdfe605c6904f4b8307df1c475746a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9210215659403930661, guid: 9cfdfe605c6904f4b8307df1c475746a, type: 3}
       propertyPath: m_RootOrder
       value: 4

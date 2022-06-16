@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PickUpHelpItems : MonoBehaviour
 {
-    private Inventory inventory;
+    public Inventory inventory;
     public GameObject itemButton;
 
-    private void Start()
+    void Start()
     {
         inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
     }
@@ -22,6 +22,7 @@ public class PickUpHelpItems : MonoBehaviour
                 {
                     // Item can be added to inventory!
                     inventory.isFull[i] = true;
+                    // Debug.Log("should be true: Check " + inventory.isFull[i]);
                     Instantiate(itemButton, inventory.slots[i].transform, false);
                     Destroy(gameObject);
                     break;

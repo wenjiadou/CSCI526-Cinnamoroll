@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-      if (Input.GetKeyDown(KeyCode.W) && !isMoving)
+      if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && !isMoving)
       {
           if(!Physics.Raycast(transform.position, Vector3.forward, rayLength, stopMovement)) // bound check
           {
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
               }
           }
       }
-      if (Input.GetKeyDown(KeyCode.S) && !isMoving)
+      if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isMoving)
       {
           if(!Physics.Raycast(transform.position, Vector3.back, rayLength, stopMovement))
           {
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
               }
           }
       }
-      if (Input.GetKeyDown(KeyCode.A) && !isMoving)
+      if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && !isMoving)
       {
           if(!Physics.Raycast(transform.position, Vector3.left, rayLength, stopMovement))
           {
@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
               }
           }
       }
-      if (Input.GetKeyDown(KeyCode.D) && !isMoving)
+      if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && !isMoving)
       {
           if(!Physics.Raycast(transform.position, Vector3.right, rayLength, stopMovement))
           {

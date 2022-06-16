@@ -21,20 +21,20 @@ public class HealItem : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if(Input.GetKeyDown(KeyCode.J))
         {
             slot1 = GameObject.Find("Slot(1)").transform.position;
             if(transform.position == slot1)
             {
                 Use();
             }
-        } else if(Input.GetKeyDown(KeyCode.Alpha2)) {
+        } else if(Input.GetKeyDown(KeyCode.K)) {
             slot2 = GameObject.Find("Slot(2)").transform.position;
             if(transform.position == slot2)
             {
                 Use();
             }
-        } else if(Input.GetKeyDown(KeyCode.Alpha3)) {
+        } else if(Input.GetKeyDown(KeyCode.L)) {
             slot3 = GameObject.Find("Slot(3)").transform.position;
             if(transform.position == slot3)
             {

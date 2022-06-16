@@ -116,7 +116,7 @@ MonoBehaviour:
   isMoving: 0
   stopMovement:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 256
   rayLength: 1.4
   direction: {x: 0, y: 0, z: 0}
   playVictoryAnimation: 0

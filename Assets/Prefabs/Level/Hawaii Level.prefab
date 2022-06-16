@@ -7751,6 +7751,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 452392903823695780}
     - target: {fileID: 3638900143947073648, guid: 8afe0db09c0bdd44e8e1a7df3963dca2, type: 3}
+      propertyPath: destinationTrigger
+      value: 
+      objectReference: {fileID: 4326031237484669719}
+    - target: {fileID: 3638900143947073648, guid: 8afe0db09c0bdd44e8e1a7df3963dca2, type: 3}
       propertyPath: stopMovement.m_Bits
       value: 256
       objectReference: {fileID: 0}
@@ -24390,6 +24394,11 @@ PrefabInstance:
 --- !u!4 &4326031237484669715 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5807339001288938810, guid: 6036d1e7a90ee7046bb4b2f161f15a1a, type: 3}
+  m_PrefabInstance: {fileID: 7826964167266221609}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &4326031237484669719 stripped
+CapsuleCollider:
+  m_CorrespondingSourceObject: {fileID: 5807339001288938814, guid: 6036d1e7a90ee7046bb4b2f161f15a1a, type: 3}
   m_PrefabInstance: {fileID: 7826964167266221609}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7827204094336037198

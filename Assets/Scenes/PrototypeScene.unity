@@ -1004,6 +1004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca724531ece294911bb751ec45b8cf75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory: {fileID: 0}
   itemButton: {fileID: 3662792380176832798, guid: 2967cb9efad784ca3bd1ae9e267caade, type: 3}
 --- !u!135 &43548110
 SphereCollider:
@@ -3679,6 +3680,9 @@ MonoBehaviour:
   Material1: {fileID: 0}
   Material2: {fileID: 0}
   Material3: {fileID: 0}
+  water:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!65 &403880472
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4113,6 +4117,9 @@ MonoBehaviour:
   Material1: {fileID: 0}
   Material2: {fileID: 0}
   Material3: {fileID: 0}
+  water:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!1 &427085437
 GameObject:
   m_ObjectHideFlags: 0
@@ -4817,6 +4824,9 @@ MonoBehaviour:
   Material1: {fileID: 0}
   Material2: {fileID: 0}
   Material3: {fileID: 0}
+  water:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!1 &469673766
 GameObject:
   m_ObjectHideFlags: 0
@@ -9091,6 +9101,9 @@ MonoBehaviour:
   Material1: {fileID: 2100000, guid: e98434124a80c4f6c8e6ba85ff720df9, type: 2}
   Material2: {fileID: 2100000, guid: 9f58f031cceb14dcb8dc2a999b50cb0f, type: 2}
   Material3: {fileID: 2100000, guid: 258bb0992f02f4887914464c48d62f4d, type: 2}
+  water:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!65 &888575851
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11959,6 +11972,9 @@ MonoBehaviour:
   Material1: {fileID: 0}
   Material2: {fileID: 0}
   Material3: {fileID: 0}
+  water:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!1 &1244940339
 GameObject:
   m_ObjectHideFlags: 0
@@ -13219,6 +13235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca724531ece294911bb751ec45b8cf75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory: {fileID: 0}
   itemButton: {fileID: 5654096907893451842, guid: 87ff9b09bc08445f5a2cb881cc16e9ed, type: 3}
 --- !u!135 &1419875133
 SphereCollider:
@@ -13434,6 +13451,9 @@ MonoBehaviour:
   Material1: {fileID: 0}
   Material2: {fileID: 0}
   Material3: {fileID: 0}
+  water:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!65 &1464348656
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14230,6 +14250,9 @@ MonoBehaviour:
   Material1: {fileID: 0}
   Material2: {fileID: 0}
   Material3: {fileID: 0}
+  water:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!65 &1557829328
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15401,6 +15424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca724531ece294911bb751ec45b8cf75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventory: {fileID: 0}
   itemButton: {fileID: 3662792380176832798, guid: 2967cb9efad784ca3bd1ae9e267caade, type: 3}
 --- !u!135 &1699072106
 SphereCollider:
@@ -16284,6 +16308,9 @@ MonoBehaviour:
   direction: {x: 0, y: 0, z: 0}
   playVictoryAnimation: 0
   destinationTrigger: {fileID: 500211679}
+  water:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!135 &1861383646
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -16962,6 +16989,9 @@ MonoBehaviour:
   Material1: {fileID: 0}
   Material2: {fileID: 0}
   Material3: {fileID: 0}
+  water:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!65 &1940699951
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18537,6 +18567,9 @@ MonoBehaviour:
   Material1: {fileID: 0}
   Material2: {fileID: 0}
   Material3: {fileID: 0}
+  water:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!65 &2094355849
 BoxCollider:
   m_ObjectHideFlags: 0

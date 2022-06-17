@@ -10,7 +10,7 @@ public class BombItem : MonoBehaviour
     // Bomb-use
     public GameObject bombItem;
 
-    public Inventory inventory;
+    // public Inventory inventory;
 
     private Vector3 slot1;
     private Vector3 slot2;
@@ -20,7 +20,7 @@ public class BombItem : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
+        // inventory = GameObject.FindGameObjectWithTag("Player").GetComponent<Inventory>();
     }
 
     void Update()
@@ -31,21 +31,21 @@ public class BombItem : MonoBehaviour
             if(transform.position == slot1)
             {
                 Use();
-                inventory.isFull[0] = false;
+                // inventory.isFull[0] = false;
             }
         } else if(Input.GetKeyDown(KeyCode.K)) {
             slot2 = GameObject.Find("Slot(2)").transform.position;
             if(transform.position == slot2)
             {
                 Use();
-                inventory.isFull[1] = false;
+                // inventory.isFull[1] = false;
             }
         } else if(Input.GetKeyDown(KeyCode.L)) {
             slot3 = GameObject.Find("Slot(3)").transform.position;
             if(transform.position == slot3)
             {
                 Use();
-                inventory.isFull[2] = false;
+                // inventory.isFull[2] = false;
             }
         }
     }

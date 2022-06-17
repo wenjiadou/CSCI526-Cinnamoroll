@@ -15,11 +15,20 @@ public class PlayerController : MonoBehaviour
     public bool playVictoryAnimation = false;
     public CapsuleCollider destinationTrigger;
 
+    public LayerMask water;
+
+    public Inventory inventory;
+
+    void Start()
+    {
+      inventory = gameObject.GetComponent<Inventory>();
+    }
+
     void Update()
     {
       if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && !isMoving)
       {
-          if(!Physics.Raycast(transform.position, Vector3.forward, rayLength, stopMovement)) // bound check
+          if(!Physics.Raycast(transform.position, Vector3.forward, rayLength, (stopMovement | water)))
           {
               direction = Vector3.forward;
               RaycastHit hit;
@@ -35,7 +44,7 @@ public class PlayerController : MonoBehaviour
       }
       if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isMoving)
       {
-          if(!Physics.Raycast(transform.position, Vector3.back, rayLength, stopMovement))
+          if(!Physics.Raycast(transform.position, Vector3.back, rayLength, (stopMovement | water)))
           {
               direction = Vector3.back;
               RaycastHit hit;
@@ -51,7 +60,7 @@ public class PlayerController : MonoBehaviour
       }
       if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && !isMoving)
       {
-          if(!Physics.Raycast(transform.position, Vector3.left, rayLength, stopMovement))
+          if(!Physics.Raycast(transform.position, Vector3.left, rayLength, (stopMovement | water)))
           {
               direction = Vector3.left;
               RaycastHit hit;
@@ -67,7 +76,7 @@ public class PlayerController : MonoBehaviour
       }
       if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && !isMoving)
       {
-          if(!Physics.Raycast(transform.position, Vector3.right, rayLength, stopMovement))
+          if(!Physics.Raycast(transform.position, Vector3.right, rayLength, (stopMovement | water)))
           {
               direction = Vector3.right;
               RaycastHit hit;
@@ -79,6 +88,7 @@ public class PlayerController : MonoBehaviour
                   StartCoroutine(MovePlayer(direction));
               }
           }
+          inventory.CheckFull();
       }
     }
 

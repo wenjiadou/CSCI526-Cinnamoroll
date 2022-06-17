@@ -16,6 +16,8 @@ public class PickUpHelpItems : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
+            // Debug.Log("before pick up:");
+            // inventory.CheckFull();
             for(int i = 0; i < inventory.slots.Length; i++)
             {
                 if(inventory.isFull[i] == false)
@@ -23,11 +25,14 @@ public class PickUpHelpItems : MonoBehaviour
                     // Item can be added to inventory!
                     inventory.isFull[i] = true;
                     // Debug.Log("should be true: Check " + inventory.isFull[i]);
+                    // inventory.CheckFull();
                     Instantiate(itemButton, inventory.slots[i].transform, false);
                     Destroy(gameObject);
                     break;
                 }
             }
+            // Debug.Log("after pick up:");
+            // inventory.CheckFull();
         }
     }
 }

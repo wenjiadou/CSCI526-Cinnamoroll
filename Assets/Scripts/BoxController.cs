@@ -17,6 +17,8 @@ public class BoxController : MonoBehaviour
     public Material Material2;
     public Material Material3;
 
+    public LayerMask water;
+
     void Update()
     {
         // if(move)
@@ -67,7 +69,7 @@ public class BoxController : MonoBehaviour
 
     public bool checkMoveable(Vector3 direction)
     {
-        moveable = !Physics.Raycast(transform.position, direction, rayLength);
+        moveable = !Physics.Raycast(transform.position, direction, rayLength, ~water);
         if(limitSteps <= 0) {
             moveable = false;
         }

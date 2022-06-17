@@ -460,7 +460,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9210215659403930661
 Transform:
   m_ObjectHideFlags: 0
@@ -12264,6 +12264,10 @@ PrefabInstance:
       propertyPath: slots.Array.data[2]
       value: 
       objectReference: {fileID: 7540795105539167527}
+    - target: {fileID: 3638900143947073648, guid: 8afe0db09c0bdd44e8e1a7df3963dca2, type: 3}
+      propertyPath: water.m_Bits
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 3638900143947073648, guid: 8afe0db09c0bdd44e8e1a7df3963dca2, type: 3}
       propertyPath: destinationTrigger
       value: 

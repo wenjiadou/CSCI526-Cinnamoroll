@@ -9,8 +9,7 @@ public class PlayerController : MonoBehaviour
     private float timeToMove = 0.2f;
 
     public LayerMask stopMovement;
-    [SerializeField]
-    float rayLength = 1.4f;
+    public float rayLength = 1.4f;
     public Vector3 direction;
 
     public bool playVictoryAnimation = false;
@@ -106,11 +105,20 @@ public class PlayerController : MonoBehaviour
 
     private void PushBox(RaycastHit hit)
     {
+        // // check if it is moveable and push box
+        // hit.collider.GetComponent<BoxController>().checkMoveable(direction);
+        // if (hit.collider.GetComponent<BoxController>().moveable)
+        // {
+        //     StartCoroutine(MovePlayer(direction));
+        //     hit.collider.GetComponent<BoxController>().move = true;
+        // }
+
         // check if it is moveable and push box
         bool moveable = hit.collider.GetComponent<BoxController>().checkMoveable(direction);
         if (moveable) {
             StartCoroutine(MovePlayer(direction));
             hit.collider.GetComponent<BoxController>().moveBox(direction);
+            hit.collider.GetComponent<BoxController>().limitSteps--;
         }
     }
 

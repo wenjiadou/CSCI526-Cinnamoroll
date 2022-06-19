@@ -12,12 +12,17 @@ public class TutorialManager : MonoBehaviour
     private HeartSystem heartSystem;
     private PlayerController playerController;
 
+    private float timer1;
+    private float timer2;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         inventory = player.GetComponent<Inventory>();
         heartSystem = player.GetComponent<HeartSystem>();
         playerController = player.GetComponent<PlayerController>();
+        timer1 = 0f;
+        timer2 = 0f;
     }
 
     void Update()
@@ -43,8 +48,16 @@ public class TutorialManager : MonoBehaviour
             {
                 popUpIndex++;
             }
-        } else if(popUpIndex == 2) {
-            if (inventory.isFull[0] == false)
+        } else if(popUpIndex == 2) 
+        {
+            timer1 += Time.deltaTime;
+            if(inventory.isFull[0] == false || timer1 >= 3f)
+            {
+                popUpIndex++;
+            }
+        } else if(popUpIndex == 3) {
+            timer2 += Time.deltaTime;
+            if(timer2 >= 3f)
             {
                 popUpIndex++;
             }
@@ -52,25 +65,25 @@ public class TutorialManager : MonoBehaviour
             // Player died
             if(heartSystem.life < 1)
             {
-                popUpIndex = 4;
+                popUpIndex = 5;
             }
 
             // Player get the destination
             if(playerController.playVictoryAnimation)
             {
-                popUpIndex = 5;
+                popUpIndex = 6;
             }
-        } else if(popUpIndex == 3) {
+        } else if(popUpIndex == 4) {
             // Player died
             if(heartSystem.life < 1)
             {
-                popUpIndex = 4;
+                popUpIndex = 5;
             }
 
             // Player get the destination
             if(playerController.playVictoryAnimation)
             {
-                popUpIndex = 5;
+                popUpIndex = 6;
             }
         }
     }

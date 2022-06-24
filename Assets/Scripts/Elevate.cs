@@ -52,15 +52,17 @@ public class Elevate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isUp && Vector3.Distance(player.transform.position, transform.position)==1){
-
-            if (player.GetComponent<PlayerController>().isMoving == false){
-                transform.Translate(Vector3.up);
-                player.transform.Translate(Vector3.up);
-                isUp=true;
+        if (!isUp){
+            if(Vector3.Distance(player.transform.position, transform.position)<=1.1 && player.transform.position.y - transform.position.y == 1)
+            {
+                if (player.GetComponent<PlayerController>().isMoving == false){
+                    transform.Translate(Vector3.up);
+                    player.transform.Translate(Vector3.up);
+                    isUp=true;
+                }
             }
         }
-        if (isUp && Vector3.Distance(player.transform.position, transform.position)>1.1){
+        if (isUp && Vector3.Distance(player.transform.position, transform.position)>1.5){
 
             if (player.GetComponent<PlayerController>().isMoving == false){
                 transform.Translate(Vector3.down);

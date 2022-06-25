@@ -71,7 +71,13 @@ public class TutorialManager : MonoBehaviour
             // Player get the destination
             if(playerController.playVictoryAnimation)
             {
-                popUpIndex = 6;
+                if (heartSystem.life == 1) {
+                    popUpIndex = 6;  //1 star pass
+                } else if (heartSystem.life == 2) {
+                    popUpIndex = 7;  //2 star pass
+                } else if (heartSystem.life == 3) {
+                    popUpIndex = 8;  //3 star pass
+                }
             }
         } else if(popUpIndex == 4) {
             // Player died
@@ -83,7 +89,13 @@ public class TutorialManager : MonoBehaviour
             // Player get the destination
             if(playerController.playVictoryAnimation)
             {
-                popUpIndex = 6;
+                if (heartSystem.life == 1) {
+                    popUpIndex = 6;  //1 star pass
+                } else if (heartSystem.life == 2) {
+                    popUpIndex = 7;  //2 star pass
+                } else if (heartSystem.life == 3) {
+                    popUpIndex = 8;  //3 star pass
+                }
             }
         }
     }

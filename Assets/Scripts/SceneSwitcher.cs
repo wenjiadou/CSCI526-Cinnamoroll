@@ -12,6 +12,6 @@ public class SceneSwitcher : MonoBehaviour
 
     public void backToMenu()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+        SceneManager.LoadScene("Level Selection");
     }
 }

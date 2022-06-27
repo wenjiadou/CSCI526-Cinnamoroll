@@ -26,7 +26,8 @@ public class PickUpHelpItems : MonoBehaviour
                     inventory.isFull[i] = true;
                     // Debug.Log("should be true: Check " + inventory.isFull[i]);
                     // inventory.CheckFull();
-                    Instantiate(itemButton, inventory.slots[i].transform, false);
+                    GameObject newButton = Instantiate(itemButton, inventory.slots[i].transform, false);
+                    newButton.SetActive(true);
                     Destroy(gameObject);
                     break;
                 }

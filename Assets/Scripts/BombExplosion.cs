@@ -19,6 +19,7 @@ public class BombExplosion : MonoBehaviour
     {
         // Debug.Log(gameObject.transform.position);
         explosion = Instantiate(explosionPrefab, transform.position + Vector3.down, Quaternion.identity);
+        explosion.SetActive(true);
         // Debug.Log(explosion.transform.position);
 
         // Kill enemy and hurt player

@@ -52,7 +52,8 @@ public class BombItem : MonoBehaviour
 
     public void Use()
     {
-        Instantiate(bombItem, player.position, Quaternion.identity);
+        GameObject bomb_use = Instantiate(bombItem, player.position, Quaternion.identity);
+        bomb_use.SetActive(true);
 
         // Destroy the button
         Destroy(gameObject);

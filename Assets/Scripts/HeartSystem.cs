@@ -7,7 +7,7 @@ public class HeartSystem : MonoBehaviour
 {
     public Image[] hearts;
     public int life = 3;
-    private bool dead;
+    public bool dead = false;
 
     private bool invulnerable;
     private float timer;

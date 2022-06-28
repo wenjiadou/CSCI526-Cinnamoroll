@@ -26,7 +26,7 @@ public class TriggerDetect : MonoBehaviour
                 isTrigger = true;
             } else if(wait) {
                 timer += Time.deltaTime;
-                if(timer >= 1f)
+                if(timer >= 0.3f)
                 {
                     wait = false;
                     timer = 0f;

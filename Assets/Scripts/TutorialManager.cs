@@ -7,22 +7,19 @@ public class TutorialManager : MonoBehaviour
     public GameObject[] popUps;
     private int popUpIndex;
 
+    public GameObject box1;
     private GameObject player;
+    private TutorialDetector detector;
+    public GameObject bomb;
     private Inventory inventory;
-    private HeartSystem heartSystem;
-    private PlayerController playerController;
-
-    private float timer1;
-    private float timer2;
+    private float timer = 0f;
+    // private float timer2 = 0f;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        detector = player.GetComponent<TutorialDetector>();
         inventory = player.GetComponent<Inventory>();
-        heartSystem = player.GetComponent<HeartSystem>();
-        playerController = player.GetComponent<PlayerController>();
-        timer1 = 0f;
-        timer2 = 0f;
     }
 
     void Update()
@@ -32,70 +29,57 @@ public class TutorialManager : MonoBehaviour
             if(i == popUpIndex)
             {
                 popUps[i].SetActive(true);
+                if(i == 1) {
+                    // Boxes change Color
+                    box1.GetComponent<ChangeColor>().active = true;
+                    // Debug.Log("active change color.");
+                } else if(inventory.isFull[0] == false && i == 4) {
+                    // Bomb Animator active
+                    bomb.GetComponent<Animator>().enabled = true;
+                }
             } else {
                 popUps[i].SetActive(false);
             }
         }
 
-        if(popUpIndex == 0)
-        {
+        if(popUpIndex == 0) {
             if(Input.GetKeyDown(KeyCode.D))
             {
                 popUpIndex++;
             }
         } else if(popUpIndex == 1) {
-            if(inventory.isFull[0] == true)
+            if(detector.detect1 == true)
             {
                 popUpIndex++;
+                box1.GetComponent<ChangeColor>().active = false;
             }
-        } else if(popUpIndex == 2) 
-        {
-            timer1 += Time.deltaTime;
-            if(inventory.isFull[0] == false || timer1 >= 3f)
+        } else if(popUpIndex == 2) {
+            if(detector.detect2 == true)
             {
                 popUpIndex++;
             }
         } else if(popUpIndex == 3) {
-            timer2 += Time.deltaTime;
-            if(timer2 >= 3f)
+            timer += Time.deltaTime;
+            if(timer >= 2f)
             {
                 popUpIndex++;
             }
-
-            // Player died
-            if(heartSystem.life < 1)
-            {
-                popUpIndex = 5;
-            }
-
-            // Player get the destination
-            if(playerController.playVictoryAnimation)
-            {
-                if (heartSystem.life == 1) {
-                    popUpIndex = 6;  //1 star pass
-                } else if (heartSystem.life == 2) {
-                    popUpIndex = 7;  //2 star pass
-                } else if (heartSystem.life == 3) {
-                    popUpIndex = 8;  //3 star pass
-                }
-            }
         } else if(popUpIndex == 4) {
-            // Player died
-            if(heartSystem.life < 1)
+            if(inventory.isFull[0] == true)
             {
-                popUpIndex = 5;
+                popUpIndex++;
             }
-
-            // Player get the destination
-            if(playerController.playVictoryAnimation)
+        } else if(popUpIndex == 5) {
+            // timer2 += Time.deltaTime;
+            // if(timer2 >= 2f)
+            if(Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D))
             {
-                if (heartSystem.life == 1) {
-                    popUpIndex = 6;  //1 star pass
-                } else if (heartSystem.life == 2) {
-                    popUpIndex = 7;  //2 star pass
-                } else if (heartSystem.life == 3) {
-                    popUpIndex = 8;  //3 star pass
-                }
+                popUpIndex++;
+            }
+        } else if(popUpIndex == 6) {
+            if(inventory.isFull[0] == false)
+            {
+                popUpIndex++;
             }
         }
     }

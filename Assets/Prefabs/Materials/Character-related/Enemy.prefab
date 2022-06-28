@@ -113,7 +113,6 @@ MonoBehaviour:
   speed: 2
   waypoints: []
   moveEnemy: 0
-  afterAttack: 0
   boxLayer:
     serializedVersion: 2
     m_Bits: 128

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,12 +13,17 @@ public class PlayerController : MonoBehaviour
     public float rayLength = 1.4f;
     public Vector3 direction;
 
+    // used in SingleLevel
     public bool playVictoryAnimation = false;
     public CapsuleCollider destinationTrigger;
 
     public LayerMask water;
 
     public Inventory inventory;
+
+    public int currentLevel = 0;
+    public int enemyKill = 0;
+    public int itemPickup = 0;
 
     void Start()
     {
@@ -88,7 +94,7 @@ public class PlayerController : MonoBehaviour
                   StartCoroutine(MovePlayer(direction));
               }
           }
-          inventory.CheckFull();
+          // inventory.CheckFull();
       }
     }
 
@@ -139,6 +145,8 @@ public class PlayerController : MonoBehaviour
         {
             playVictoryAnimation = true;
             gameObject.SetActive(false);
+
+            Analytics.CustomEvent("UserData", new Dictionary<string, object>{{"Kill", enemyKill}, {"Item", itemPickup}});
         }
     }
 }

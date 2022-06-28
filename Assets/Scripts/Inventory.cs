@@ -6,11 +6,12 @@ public class Inventory : MonoBehaviour
 {
     public bool[] isFull;
     public GameObject[] slots;
+    public int stars;
 
-    public void CheckFull()
-    {
-        Debug.Log(isFull[0]);
-        Debug.Log(isFull[1]);
-        Debug.Log(isFull[2]);
-    }
+    // public void CheckFull()
+    // {
+    //     Debug.Log(isFull[0]);
+    //     Debug.Log(isFull[1]);
+    //     Debug.Log(isFull[2]);
+    // }
 }

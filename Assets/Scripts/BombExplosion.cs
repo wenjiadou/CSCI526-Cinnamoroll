@@ -2,6 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// public class BombExplosion : MonoBehaviour
+// {
+//     public GameObject explosionPrefab;
+//     // private HeartSystem playerHearts;
+//     private GameObject explosion;
+//     // private GameObject player;
+
+//     void Start()
+//     {
+//         Invoke("Explode", 3f);
+//     }
+
+//     void Explode()
+//     {
+//         explosion = Instantiate(explosionPrefab, transform.position + Vector3.down, Quaternion.identity);
+
+//         Destroy(gameObject, .3f);
+//         Destroy(explosion, .5f);
+//     }
+// }
+
 public class BombExplosion : MonoBehaviour
 {
     public GameObject explosionPrefab;
@@ -48,6 +69,9 @@ public class BombExplosion : MonoBehaviour
             if(hit.collider.gameObject.CompareTag("Enemy")) {
                 // Kill enemy
                 Destroy(hit.collider.gameObject);
+
+                player.gameObject.GetComponent<PlayerController>().enemyKill = player.gameObject.GetComponent<PlayerController>().enemyKill + 1;
+                
             // } else if(hit.collider.gameObject.CompareTag("Player")) {
             //     // Player life - 1
             //     Debug.Log("Player");

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PickUpHelpItems : MonoBehaviour
 {
-    public Inventory inventory;
+    private Inventory inventory;
     public GameObject itemButton;
 
     void Start()
@@ -18,21 +18,36 @@ public class PickUpHelpItems : MonoBehaviour
         {
             // Debug.Log("before pick up:");
             // inventory.CheckFull();
+            // for(int i = 0; i < inventory.slots.Length; i++)
+            // {
+            //     if(inventory.isFull[i] == false)
+            //     {
+            //         // Item can be added to inventory!
+            //         inventory.isFull[i] = true;
+            //         // Debug.Log("should be true: Check " + inventory.isFull[i]);
+            //         // inventory.CheckFull();
+            //         Instantiate(itemButton, inventory.slots[i].transform, false);
+            //         Destroy(gameObject);
+            //         break;
+            //     }
+            // }
+            // Debug.Log("after pick up:");
+            // inventory.CheckFull();
+
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
             for(int i = 0; i < inventory.slots.Length; i++)
             {
                 if(inventory.isFull[i] == false)
                 {
-                    // Item can be added to inventory!
+                    inventory.stars += 1;
                     inventory.isFull[i] = true;
-                    // Debug.Log("should be true: Check " + inventory.isFull[i]);
-                    // inventory.CheckFull();
                     Instantiate(itemButton, inventory.slots[i].transform, false);
                     Destroy(gameObject);
+                    player.gameObject.GetComponent<PlayerController>().itemPickup = player.gameObject.GetComponent<PlayerController>().itemPickup + 1;
+                    Debug.Log("Now have "+player.gameObject.GetComponent<PlayerController>().itemPickup);
                     break;
                 }
             }
-            // Debug.Log("after pick up:");
-            // inventory.CheckFull();
         }
     }
 }

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3638900143947073615}
   - component: {fileID: 3638900143947073614}
   - component: {fileID: 3638900143947073609}
+  - component: {fileID: 7816206721848351824}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -124,6 +125,7 @@ MonoBehaviour:
   water:
     serializedVersion: 2
     m_Bits: 16
+  inventory: {fileID: 0}
 --- !u!54 &3638900143947073615
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -157,6 +159,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  stars: 0
 --- !u!114 &3638900143947073609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -174,5 +177,19 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   life: 3
+  dead: 0
   fullHeart: {fileID: 21300000, guid: 233870dc88107437db75b1c7781d81b8, type: 3}
   emptyHeart: {fileID: 21300000, guid: 28ff6fa4d686f42d4a24d6c8c051ee72, type: 3}
+--- !u!114 &7816206721848351824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3638900143947073649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bef0d247d553fcb4f95cd58cbf5b2c33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elapsedTime: 0

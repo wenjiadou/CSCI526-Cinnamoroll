@@ -28,7 +28,7 @@ public class EleDown : MonoBehaviour
                     player.GetComponent<PlayerController>().isMoving = true;
                     StartCoroutine(Move(Vector3.down, true));
                     isDown = true;
-                    player.GetComponent<PlayerController>().isMoving = false;
+                    
                 }
             }
         }
@@ -59,5 +59,6 @@ public class EleDown : MonoBehaviour
 
         transform.position = block_targetPos;
         if (withplayer) player.transform.position = player_targetPos;
+        player.GetComponent<PlayerController>().isMoving = false;
     }
 }

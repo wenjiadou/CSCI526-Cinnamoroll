@@ -18,23 +18,26 @@ public class EleDown : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isDown){
-            if(Vector3.Distance(player.transform.position, transform.position)<=1.1 && player.transform.position.y - transform.position.y == 1)
+        if (!isDown)
+        {
+            if (Vector3.Distance(player.transform.position, transform.position) <= 1.1 && (player.transform.position.y == 2 && transform.position.y == 1))
             {
-                
-                if (player.GetComponent<PlayerController>().isMoving == false){
+
+                if (player.GetComponent<PlayerController>().isMoving == false)
+                {
                     player.GetComponent<PlayerController>().isMoving = true;
                     StartCoroutine(Move(Vector3.down, true));
-                    isDown=true;
+                    isDown = true;
                     player.GetComponent<PlayerController>().isMoving = false;
                 }
             }
         }
-        if (isDown && Vector3.Distance(player.transform.position, transform.position)>1.5){
-            
-                StartCoroutine(Move(Vector3.up, false));
-                isDown=false;
-            
+        else if (isDown && Vector3.Distance(player.transform.position, transform.position) > 1.5)
+        {
+
+            StartCoroutine(Move(Vector3.up, false));
+            isDown = false;
+
         }
     }
 
@@ -43,10 +46,10 @@ public class EleDown : MonoBehaviour
 
         float elapsedTime = 0;
         Vector3 block_originPos = transform.position;
-        Vector3 block_targetPos = block_originPos + direction;   
+        Vector3 block_targetPos = block_originPos + direction;
         Vector3 player_originPos = player.transform.position;
         Vector3 player_targetPos = player_originPos + direction;
-        while(elapsedTime < timeToMove)
+        while (elapsedTime < timeToMove)
         {
             transform.position = Vector3.Lerp(block_originPos, block_targetPos, (elapsedTime / timeToMove));
             if (withplayer) player.transform.position = Vector3.Lerp(player_originPos, player_targetPos, (elapsedTime / timeToMove));

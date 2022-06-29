@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Elevate : MonoBehaviour
 {
-    // private RaycastHit hit;
+    private RaycastHit hit;
     private GameObject player;
     private float timeToMove = 0.5f;
     bool isUp = false;
+    bool isMoving = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,36 +19,43 @@ public class Elevate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isUp){
-            if(Vector3.Distance(player.transform.position, transform.position)<=1.1 && player.transform.position.y - transform.position.y == 1)
+        if (!isMoving)
+        {
+            if (!isUp)
             {
-                if (player.GetComponent<PlayerController>().isMoving == false){
-                    player.GetComponent<PlayerController>().isMoving = true;
-                    StartCoroutine(Move(Vector3.up,true));
-                    isUp=true;
-                    player.GetComponent<PlayerController>().isMoving = false;
+                if (Vector3.Distance(player.transform.position, transform.position) <= 1.1 && (player.transform.position.y == 1 && transform.position.y == 0))
+                {
+                    if (player.GetComponent<PlayerController>().isMoving == false)
+                    {
+                        player.GetComponent<PlayerController>().isMoving = true;
+                        StartCoroutine(Move(Vector3.up, true, true));
+                        player.GetComponent<PlayerController>().isMoving = false;
+                    }
+                }
+                else if (Vector3.Distance(player.transform.position, transform.position) <= 2.3 && (player.transform.position.y == 2 && transform.position.y == 0))
+                {
+                    StartCoroutine(Move(Vector3.up, false, true));
                 }
             }
-        }
-        if (isUp && Vector3.Distance(player.transform.position, transform.position)>1.5){
+            else if (isUp && Vector3.Distance(player.transform.position, transform.position) > 1.5)
+            {
 
-            
-                StartCoroutine(Move(Vector3.down,false));
+
+                StartCoroutine(Move(Vector3.down, false, false));
                 // player.transform.Translate(Vector3.up);
-                isUp=false;
-            
+
+            }
         }
-
     }
-    private IEnumerator Move(Vector3 direction, bool withplayer) // move block and player, if withplayer == false , without moving player
+    private IEnumerator Move(Vector3 direction, bool withplayer, bool isUpEnd) // move block and player, if withplayer == false , without moving player
     {
-
+        isMoving = true;
         float elapsedTime = 0;
         Vector3 block_originPos = transform.position;
-        Vector3 block_targetPos = block_originPos + direction;   
+        Vector3 block_targetPos = block_originPos + direction;
         Vector3 player_originPos = player.transform.position;
         Vector3 player_targetPos = player_originPos + direction;
-        while(elapsedTime < timeToMove)
+        while (elapsedTime < timeToMove)
         {
             transform.position = Vector3.Lerp(block_originPos, block_targetPos, (elapsedTime / timeToMove));
             if (withplayer) player.transform.position = Vector3.Lerp(player_originPos, player_targetPos, (elapsedTime / timeToMove));
@@ -56,5 +65,8 @@ public class Elevate : MonoBehaviour
 
         transform.position = block_targetPos;
         if (withplayer) player.transform.position = player_targetPos;
+
+        isUp = isUpEnd;
+        isMoving = false;
     }
 }

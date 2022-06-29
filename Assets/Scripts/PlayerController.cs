@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// using Unity.Services.Core;
+// using Unity.Services.Analytics;
+using UnityEngine.Networking;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,34 +15,46 @@ public class PlayerController : MonoBehaviour
     public float rayLength = 1.4f;
     public Vector3 direction;
 
+    // used in SingleLevel
     public bool playVictoryAnimation = false;
     public CapsuleCollider destinationTrigger;
 
     public LayerMask water;
-    public LayerMask Ice;
-    public Inventory inventory;
 
+    public LayerMask Ice;
     public float originSpeed = 1f;
     public float speedIncrease = 0.5f;
+
+    public Inventory inventory;
+
+    public int currentLevel = 0;
+    public int enemyKill = 0;
+    public int itemPickup = 0;
+
+    private string url = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdGOqN5DYsR79HX0byJl7bJ_Eqo7aVJPFN7Mr1ObypHP7n9wg/formResponse";
+
+    // private GameObject light;
+
     void Start()
     {
       inventory = gameObject.GetComponent<Inventory>();
+      // light = GameObject.Find("Directional Light"); 
+      // light.SetActive(false);
     }
 
     void Update()
     {
-    if (Physics.Raycast(transform.position, Vector3.down, rayLength, Ice) && isMoving == false){
-        // Debug.Log(111);
-        
-        Vector3 target = transform.position;
-        while (Physics.Raycast(target, Vector3.down, rayLength, Ice)) target = target + direction;
-        Debug.Log(target);
-        StartCoroutine(SlipOnIce(target));
-    }
+        if (Physics.Raycast(transform.position, Vector3.down, rayLength, Ice) && !isMoving)
+        {
+            Vector3 target = transform.position;
+            while (Physics.Raycast(target, Vector3.down, rayLength, Ice)) target = target + direction;
+            // Debug.Log(target);
+            StartCoroutine(SlipOnIce(target));
+        }
+
       if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) && !isMoving)
       {
-        
-        if(!Physics.Raycast(transform.position, Vector3.forward, rayLength, (stopMovement | water)))
+          if(!Physics.Raycast(transform.position, Vector3.forward, rayLength, (stopMovement | water)))
           {
               direction = Vector3.forward;
               RaycastHit hit;
@@ -52,12 +67,10 @@ public class PlayerController : MonoBehaviour
                   StartCoroutine(MovePlayer(direction));
               }
           }
-          
       }
       if ((Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) && !isMoving)
       {
-       
-        if(!Physics.Raycast(transform.position, Vector3.back, rayLength, (stopMovement | water)))
+          if(!Physics.Raycast(transform.position, Vector3.back, rayLength, (stopMovement | water)))
           {
               direction = Vector3.back;
               RaycastHit hit;
@@ -73,8 +86,7 @@ public class PlayerController : MonoBehaviour
       }
       if ((Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) && !isMoving)
       {
-       
-        if(!Physics.Raycast(transform.position, Vector3.left, rayLength, (stopMovement | water)))
+          if(!Physics.Raycast(transform.position, Vector3.left, rayLength, (stopMovement | water)))
           {
               direction = Vector3.left;
               RaycastHit hit;
@@ -90,8 +102,7 @@ public class PlayerController : MonoBehaviour
       }
       if ((Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) && !isMoving)
       {
-       
-        if(!Physics.Raycast(transform.position, Vector3.right, rayLength, (stopMovement | water)))
+          if(!Physics.Raycast(transform.position, Vector3.right, rayLength, (stopMovement | water)))
           {
               direction = Vector3.right;
               RaycastHit hit;
@@ -103,7 +114,7 @@ public class PlayerController : MonoBehaviour
                   StartCoroutine(MovePlayer(direction));
               }
           }
-          inventory.CheckFull();
+          // inventory.CheckFull();
       }
     }
 
@@ -134,24 +145,23 @@ public class PlayerController : MonoBehaviour
         // if (Physics.Raycast(transform.position - new Vector3(0,1,0), direction,out hit,Mathf.Infinity)){
         //     Debug.Log(hit.collider.transform.position);
         // }
-        
+
         // Vector3 target = transform.position + direction;
-        
+
         isMoving = true;
-        float elapsedTime = 0;
 
         // Vector3 originPos = transform.position;
         // targetPos = originPos + direction;
         float speed = originSpeed;
-        while(transform.position!=target)
-        {   
+        while (transform.position != target)
+        {
             speed += speedIncrease;
             transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
             yield return null;
         }
 
         isMoving = false;
-       
+
     }
 
     private void PushBox(RaycastHit hit)
@@ -178,8 +188,18 @@ public class PlayerController : MonoBehaviour
         // if player is inside destination trigger play victory clip
         if (other == destinationTrigger)
         {
+            //playVictoryAnimation = true;
+            //gameObject.SetActive(false);
+
+            //Analytics.CustomEvent("UserData", new Dictionary<string, object>{{"Kill", enemyKill}, {"Item", itemPickup}, {"Level", currentLevel}});
+
             playVictoryAnimation = true;
+            // StartCoroutine(Post());
             gameObject.SetActive(false);
+            WWWForm form = new WWWForm();
+            form.AddField("entry.445623165", currentLevel + " " + enemyKill + " " + itemPickup);
+            UnityWebRequest www = UnityWebRequest.Post(url, form);
+            www.SendWebRequest();
         }
     }
 }

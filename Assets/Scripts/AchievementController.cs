@@ -8,8 +8,8 @@ public class AchievementController : MonoBehaviour
     public int levelNumber;
 
     // Achivement: KillAll, KillZero
-    public int numEnemy = 0;
-    private int numKillEnemy = 0;
+    public int numEnemy;
+    // private int numKillEnemy = 0;
 
     // Achivement: PickAll, UseNone
     public int numTool = 0;
@@ -34,6 +34,9 @@ public class AchievementController : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         heartSystem = player.GetComponent<HeartSystem>();
         inventory = player.GetComponent<Inventory>();
+        GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        numEnemy = allEnemies.Length;
+        Debug.Log("enemy number: " + numEnemy);
     }
 
     private void OnDisable()
@@ -45,7 +48,7 @@ public class AchievementController : MonoBehaviour
     {
         if (!heartSystem.dead)
         {
-            numKillEnemy = player.gameObject.GetComponent<PlayerController>().enemyKill;
+            // numKillEnemy = player.gameObject.GetComponent<PlayerController>().enemyKill;
             numPickTool = player.gameObject.GetComponent<PlayerController>().itemPickup;
             int numPlayerTool = 0;
             for (int i = 0; i < inventory.slots.Length; i++)
@@ -60,8 +63,11 @@ public class AchievementController : MonoBehaviour
                 useTool = true;
             }
 
+            GameObject[] aliveEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+            int numAliveEnemy = aliveEnemies.Length;
+
             // Set Achievements
-            if (numKillEnemy == numEnemy)
+            if (numAliveEnemy == 0)
             {
                 achievements[0].gameObject.SetActive(true);
                 PlayerPrefs.SetInt("killAll" + levelNumber, 1);
@@ -70,7 +76,7 @@ public class AchievementController : MonoBehaviour
                 failAchievements[0].gameObject.SetActive(true);
             }
                 
-            if (numKillEnemy == 0)
+            if (numAliveEnemy == numEnemy)
             {
                 achievements[1].gameObject.SetActive(true);
                 PlayerPrefs.SetInt("killZero" + levelNumber, 1);

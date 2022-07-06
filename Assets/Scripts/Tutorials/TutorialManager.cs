@@ -66,36 +66,36 @@ public class TutorialManager : MonoBehaviour
                 box1.GetComponent<ChangeColor>().active = false;
             }
         } else if(popUpIndex == 2) {
-            timer3 += Time.deltaTime;
-            playerController.isMoving = true;
-            if (timer3 >= 2f)
-            {
-                playerController.isMoving = false;
-            }
+            // timer3 += Time.deltaTime;
+            // playerController.isMoving = true;
+            //if (timer3 >= 2f)
+            //{
+            //    playerController.isMoving = false;
+            //}
             if (detector.detect2 == true)
             {
                 popUpIndex++;
-                timer3 = 0f;
+                // timer3 = 0f;
             }
         } else if(popUpIndex == 3) {
             timer += Time.deltaTime;
-            playerController.isMoving = true;
+            // playerController.isMoving = true;
             if (timer >= 2f)
             {
                 popUpIndex++;
-                playerController.isMoving = false;
+                // playerController.isMoving = false;
             }
         } else if(popUpIndex == 4) {
-            timer3 += Time.deltaTime;
-            playerController.isMoving = true;
-            if (timer3 >= 2f)
-            {
-                playerController.isMoving = false;
-            }
+            //timer3 += Time.deltaTime;
+            //playerController.isMoving = true;
+            //if (timer3 >= 2f)
+            //{
+            //    playerController.isMoving = false;
+            //}
             if (inventory.isFull[0] == true)
             {
                 popUpIndex++;
-                timer3 = 0f;
+                // timer3 = 0f;
             } else if (!remind)
             {
                 if (detector.detect3 == true || (detector.detect4 == true || detector.detect5 == true))
@@ -108,10 +108,11 @@ public class TutorialManager : MonoBehaviour
             }
         } else if(popUpIndex == 5) {
             timer4 += Time.deltaTime;
-            playerController.isMoving = true;
-            if (timer4 >= 1f && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)))
+            // player.GetComponent<Rigidbody>
+            playerController.FreezePlayer();
+            if (timer4 >= 1f && (Input.GetKeyDown(KeyCode.Space)))
             {
-                playerController.isMoving = false;
+                playerController.UnfreezePlayer();
                 popUpIndex++;
             }
         } else if(popUpIndex == 6) {
@@ -131,12 +132,17 @@ public class TutorialManager : MonoBehaviour
         } else if(popUpIndex == specialIndex)
         {
             timer2 += Time.deltaTime;
-            playerController.isMoving = true;
-            if (timer2 >= 3f)
+            // playerController.isMoving = true;
+            if (timer2 >= 2f)
             {
                 popUpIndex = currIndex;
                 timer2 = 0f;
-                playerController.isMoving = false;
+                // playerController.isMoving = false;
+
+                if (inventory.isFull[0] == true)
+                {
+                    popUpIndex++;
+                }
             }
         }
     }

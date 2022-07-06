@@ -28,7 +28,8 @@ public class PlayerController : MonoBehaviour
     public Inventory inventory;
 
     public int currentLevel = 0;
-    public int enemyKill = 0;
+    // public int enemyKill = 0;
+    public int numEnemy;
     public int itemPickup = 0;
 
     private string url = "https://docs.google.com/forms/u/0/d/e/1FAIpQLSdGOqN5DYsR79HX0byJl7bJ_Eqo7aVJPFN7Mr1ObypHP7n9wg/formResponse";
@@ -37,9 +38,12 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-      inventory = gameObject.GetComponent<Inventory>();
-      // light = GameObject.Find("Directional Light"); 
-      // light.SetActive(false);
+        inventory = gameObject.GetComponent<Inventory>();
+        // light = GameObject.Find("Directional Light"); 
+        // light.SetActive(false);
+        // enemyKill = 0;
+        GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        numEnemy = allEnemies.Length;
     }
 
     void Update()
@@ -48,6 +52,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 target = transform.position;
             while (Physics.Raycast(target, Vector3.down, rayLength, Ice)) target = target + direction;
+            if (Physics.Raycast(target - direction, direction, 1f, stopMovement)) target = target - direction;
             // Debug.Log(target);
             StartCoroutine(SlipOnIce(target));
         }
@@ -160,6 +165,8 @@ public class PlayerController : MonoBehaviour
             yield return null;
         }
 
+        transform.position = target;
+
         isMoving = false;
 
     }
@@ -177,8 +184,13 @@ public class PlayerController : MonoBehaviour
         // check if it is moveable and push box
         bool moveable = hit.collider.GetComponent<BoxController>().checkMoveable(direction);
         if (moveable) {
-            StartCoroutine(MovePlayer(direction));
+            //StartCoroutine(MovePlayer(direction));
+            //hit.collider.GetComponent<BoxController>().moveBox(direction);
+            //hit.collider.GetComponent<BoxController>().limitSteps--;
+
+            isMoving = true;
             hit.collider.GetComponent<BoxController>().moveBox(direction);
+            StartCoroutine(MovePlayer(direction));
             hit.collider.GetComponent<BoxController>().limitSteps--;
         }
     }
@@ -193,6 +205,9 @@ public class PlayerController : MonoBehaviour
 
             //Analytics.CustomEvent("UserData", new Dictionary<string, object>{{"Kill", enemyKill}, {"Item", itemPickup}, {"Level", currentLevel}});
 
+            GameObject[] aliveEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+            int enemyKill = numEnemy - aliveEnemies.Length;
+
             playVictoryAnimation = true;
             // StartCoroutine(Post());
             gameObject.SetActive(false);
@@ -200,6 +215,20 @@ public class PlayerController : MonoBehaviour
             form.AddField("entry.445623165", currentLevel + " " + enemyKill + " " + itemPickup);
             UnityWebRequest www = UnityWebRequest.Post(url, form);
             www.SendWebRequest();
+
+            Debug.Log("kill enemy: " + enemyKill);
         }
     }
+    public bool FreezePlayer(){
+        if (isMoving == false) {
+            isMoving = true;
+            Debug.Log("Freeze success");
+            return true;
+        }
+        else return false;
+    }
+    public void UnfreezePlayer(){
+        isMoving = false;
+    }
 }
+

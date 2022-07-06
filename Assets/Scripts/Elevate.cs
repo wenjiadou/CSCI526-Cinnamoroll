@@ -29,7 +29,8 @@ public class Elevate : MonoBehaviour
                     {
                         player.GetComponent<PlayerController>().isMoving = true;
                         StartCoroutine(Move(Vector3.up, true, true));
-                        
+
+                        Invoke("waitforsecond", 1f);
                     }
                 }
                 else if (Vector3.Distance(player.transform.position, transform.position) <= 2.3 && (player.transform.position.y == 2 && transform.position.y == 0))
@@ -68,6 +69,12 @@ public class Elevate : MonoBehaviour
 
         isUp = isUpEnd;
         isMoving = false;
+        // player.GetComponent<PlayerController>().isMoving = false;
+    }
+
+    private void waitforsecond()
+    {
         player.GetComponent<PlayerController>().isMoving = false;
+        return;
     }
 }

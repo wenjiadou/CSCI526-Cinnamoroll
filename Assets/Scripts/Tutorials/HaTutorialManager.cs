@@ -5,19 +5,21 @@ using UnityEngine;
 public class HaTutorialManager : MonoBehaviour
 {
     public GameObject[] popUps;
+    public float timeLimit = 1f;
     private int popUpIndex;
 
     private GameObject player;
     private HaTutorialDetect detector;
     private PlayerController playerController;
 
-    private float timer = 0f;
+    private float timer;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         detector = player.GetComponent<HaTutorialDetect>();
+        timer = timeLimit;
         playerController = player.GetComponent<PlayerController>();
     }
 
@@ -45,13 +47,14 @@ public class HaTutorialManager : MonoBehaviour
         }
         else if (popUpIndex == 1)
         {
-            timer += Time.deltaTime;
-            playerController.isMoving = true;
-            if (timer >= 1f && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)))
+            timer -= Time.deltaTime;
+            playerController.FreezePlayer();
+            if (Input.GetKeyDown(KeyCode.Space) && timer<=0)
             {
-                playerController.isMoving = false;
+                playerController.UnfreezePlayer();
+                // playerController.isMoving = false;
+                timer = timeLimit;
                 popUpIndex++;
-                timer = 0f;
             }
         }
         else if (popUpIndex == 2)
@@ -63,11 +66,13 @@ public class HaTutorialManager : MonoBehaviour
         }
         else if (popUpIndex == 3)
         {
-            timer += Time.deltaTime;
-            playerController.isMoving = true;
-            if (timer >= 1f && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D)))
+            timer -= Time.deltaTime;
+            playerController.FreezePlayer();
+            if (Input.GetKeyDown(KeyCode.Space) && timer<=0)
             {
-                playerController.isMoving = false;
+                playerController.UnfreezePlayer();
+                // playerController.isMoving = false;
+                timer = timeLimit;
                 popUpIndex++;
             }
         }

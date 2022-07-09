@@ -5,6 +5,7 @@ using UnityEngine;
 public class BombExplosion : MonoBehaviour
 {
     public GameObject explosionPrefab;
+    public float timer=3f;
     private HeartSystem playerHearts;
     private GameObject explosion;
     private GameObject player;
@@ -12,11 +13,11 @@ public class BombExplosion : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("Explode", 3f);
+        Invoke("Explode", timer);
     }
 
     void Explode()
-    {
+    {   
         // Debug.Log(gameObject.transform.position);
         explosion = Instantiate(explosionPrefab, transform.position + Vector3.down, Quaternion.identity);
         explosion.SetActive(true);

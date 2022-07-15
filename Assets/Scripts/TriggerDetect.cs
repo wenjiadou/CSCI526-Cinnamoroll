@@ -11,6 +11,15 @@ public class TriggerDetect : MonoBehaviour
     private float timer = 0f;
     bool wait = false;
 
+    private Collider gateCollider;
+    private Renderer gateTexture;
+
+    private void Start()
+    {
+        gateCollider = gate.GetComponent<Collider>();
+        gateTexture = gate.GetComponent<Renderer>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -21,24 +30,43 @@ public class TriggerDetect : MonoBehaviour
             //     isTrigger = true;
             // }
 
-            if (Physics.Raycast(transform.position, Vector3.up, out hit, 10f)){
+            //if (Physics.Raycast(transform.position, Vector3.up, out hit, 10f)){
+            //    gateCollider.enabled = false;
+            //    gateTexture.enabled = false;
+            //    isTrigger = true;
+            //} else if(wait) {
+            //    if (gateCollider.enabled == false)
+            //    {
+            //        gateCollider.enabled = true;
+            //    }
+            //    timer += Time.deltaTime;
+            //    if(timer >= 1f)
+            //    {
+            //        wait = false;
+            //        timer = 0f;
+            //        gateTexture.enabled = true;
+            //    }
+            //}
+
+            if (Physics.Raycast(transform.position, Vector3.up, out hit, 3f))
+            {
+                // Debug.Log("isTrigger " + index + " by " + hit.collider.transform.position);
                 gate.SetActive(false);
                 isTrigger = true;
-            } else if(wait) {
-                timer += Time.deltaTime;
-                if(timer >= 0.3f)
-                {
-                    wait = false;
-                    timer = 0f;
-                    gate.SetActive(true);
-                }
             }
         } else {
-          if (!Physics.Raycast(transform.position, Vector3.up, out hit, 10f)){
-              // gate.SetActive(true);
-              isTrigger = false;
-              wait = true;
-          }
+          //if (!Physics.Raycast(transform.position, Vector3.up, out hit, 10f)){
+          //    // gate.SetActive(true);
+          //    isTrigger = false;
+          //    wait = true;
+          //}
+
+            if (!Physics.Raycast(transform.position, Vector3.up, out hit, 3f))
+            {
+                gate.SetActive(true);
+                isTrigger = false;
+                // wait = true;
+            }
         }
 
         // if(wait) {

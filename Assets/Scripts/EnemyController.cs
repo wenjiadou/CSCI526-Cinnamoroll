@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public float speed = 2;
+    public float speed = 1.5f;
     public Transform[] waypoints;
     public bool moveEnemy;
 

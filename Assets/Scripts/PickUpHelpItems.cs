@@ -39,12 +39,14 @@ public class PickUpHelpItems : MonoBehaviour
             {
                 if(inventory.isFull[i] == false)
                 {
-                    inventory.stars += 1;
+                    // inventory.stars += 1;
                     inventory.isFull[i] = true;
-                    Instantiate(itemButton, inventory.slots[i].transform, false);
+                    // Instantiate(itemButton, inventory.slots[i].transform, false);
+                    GameObject newButton = Instantiate(itemButton, inventory.slots[i].transform, false);
+                    newButton.SetActive(true);
                     Destroy(gameObject);
                     player.gameObject.GetComponent<PlayerController>().itemPickup = player.gameObject.GetComponent<PlayerController>().itemPickup + 1;
-                    Debug.Log("Now have "+player.gameObject.GetComponent<PlayerController>().itemPickup);
+                    // Debug.Log("Now have "+player.gameObject.GetComponent<PlayerController>().itemPickup);
                     break;
                 }
             }
